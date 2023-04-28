@@ -58,6 +58,31 @@
       };
     }
 
+	  function handleSlideIn(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }
+
+  const slideInImages = document.querySelectorAll('.slide-in');
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.25
+  };
+
+  const observer = new IntersectionObserver(
+    debounce(handleSlideIn),
+    observerOptions
+  );
+
+  slideInImages.forEach(image => {
+    observer.observe(image);
+  });
+
   </script>
 
   <style>
